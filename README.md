@@ -31,9 +31,13 @@ RFMarkdownTextView is like any other UITextView - just set it up with `initWithF
 Hope you enjoy it!
 
 ##Screenshots
+###Side by Side Comparison
+![RFMarkdownTextView](http://i.imgur.com/NEAocbW.png)
+![iOctocat Comment](http://i.imgur.com/P8eeXZf.png) 
+![RFMarkdownTextView 2](http://i.imgur.com/0jIR5vh.png)
+![iOctocat Comment 2](http://i.imgur.com/qPCf2wQ.png) 
 
-![Screenshot 1](http://i.imgur.com/NUpSu7F.png)
-![Screenshot 2](http://i.imgur.com/CZQJ6bW.png) 
+Looking at these now, the text size seems smaller and the `*` and `` ` `` button titles don't seem to be centered.  Feel free to open a pull request to fix either, as I won't be doing so.
 
 ##License
 
