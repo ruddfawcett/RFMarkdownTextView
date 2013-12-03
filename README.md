@@ -1,3 +1,6 @@
+##Version 1.1 Update
+This is going to be updated very soon, and will be completely restructured - so you might want to avoid using it for now. Also, the current code is awful, so...  stay tuned for 1.1! :)
+
 RFMarkdownTextView
 ==================
 
