@@ -7,8 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
+#import "RFKeyboardToolbar.h"
+#import "RFMarkdownButtons.h"
 
-@interface RFMarkdownTextView : UITextView <UITextViewDelegate>
+/*
+    enum {
+        RFMarkdownToolbarTypeBasic,
+        RFMarkdownToolbarTypeiOctocat
+    };
+    typedef NSInteger RFMarkdownToolbarType;
+
+    I'll be adding these later.
+ */
+
+@interface RFMarkdownTextView : UITextView
 
 @end
