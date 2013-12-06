@@ -18,7 +18,7 @@ pod "RFMarkdownTextView", "~> 1.1"
 
 ### Installation without CocoaPods
 
-Just drag the RFMarkdownTextView folder into your project and import it.
+Just drag the RFMarkdownTextView and [RFKeyboardToolbar](http://github.com/rexfinn/RFKeyboardToolbar) folder into your project and import it.
 
 ```
 #import 'RFMarkdownTextView.h'
