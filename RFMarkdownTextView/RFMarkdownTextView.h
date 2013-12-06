@@ -10,16 +10,6 @@
 #import "RFKeyboardToolbar.h"
 #import "RFMarkdownButtons.h"
 
-/*
-    enum {
-        RFMarkdownToolbarTypeBasic,
-        RFMarkdownToolbarTypeiOctocat
-    };
-    typedef NSInteger RFMarkdownToolbarType;
-
-    I'll be adding these later.
- */
-
-@interface RFMarkdownTextView : UITextView
+@interface RFMarkdownTextView : UITextView <UITextViewDelegate>
 
 @end

@@ -13,6 +13,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.delegate = self;
         [RFKeyboardToolbar addToTextView:self withButtons:[self buttons]];
     }
     return self;
