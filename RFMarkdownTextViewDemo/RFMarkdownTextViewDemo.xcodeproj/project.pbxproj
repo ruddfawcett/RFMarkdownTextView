@@ -17,6 +17,7 @@
 		CE041EFA185277F900F79297 /* RFQuoteToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EEE185277F900F79297 /* RFQuoteToolbarButton.m */; };
 		CE041EFB185277F900F79297 /* RFTaskToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EF0185277F900F79297 /* RFTaskToolbarButton.m */; };
 		CE041EFC185277F900F79297 /* RFUnderscoreToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EF2185277F900F79297 /* RFUnderscoreToolbarButton.m */; };
+		CE041EFF1852A74100F79297 /* RFMarkdownSyntaxStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */; };
 		CEEF0E78184EA3DE00B7DEDF /* RFKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEF0E75184EA3DE00B7DEDF /* RFKeyboardToolbar.m */; };
 		CEEF0E79184EA3DE00B7DEDF /* RFToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEF0E77184EA3DE00B7DEDF /* RFToolbarButton.m */; };
 		CEEF0E7D184EA3FE00B7DEDF /* RFMarkdownTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEF0E7C184EA3FE00B7DEDF /* RFMarkdownTextView.m */; };
@@ -66,6 +67,8 @@
 		CE041EF0185277F900F79297 /* RFTaskToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFTaskToolbarButton.m; path = Buttons/RFTaskToolbarButton.m; sourceTree = "<group>"; };
 		CE041EF1185277F900F79297 /* RFUnderscoreToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFUnderscoreToolbarButton.h; path = Buttons/RFUnderscoreToolbarButton.h; sourceTree = "<group>"; };
 		CE041EF2185277F900F79297 /* RFUnderscoreToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFUnderscoreToolbarButton.m; path = Buttons/RFUnderscoreToolbarButton.m; sourceTree = "<group>"; };
+		CE041EFD1852A74100F79297 /* RFMarkdownSyntaxStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMarkdownSyntaxStorage.h; sourceTree = "<group>"; };
+		CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMarkdownSyntaxStorage.m; sourceTree = "<group>"; };
 		CEEF0E74184EA3DE00B7DEDF /* RFKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFKeyboardToolbar.h; sourceTree = "<group>"; };
 		CEEF0E75184EA3DE00B7DEDF /* RFKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFKeyboardToolbar.m; sourceTree = "<group>"; };
 		CEEF0E76184EA3DE00B7DEDF /* RFToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFToolbarButton.h; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 			children = (
 				CEEF0E7B184EA3FE00B7DEDF /* RFMarkdownTextView.h */,
 				CEEF0E7C184EA3FE00B7DEDF /* RFMarkdownTextView.m */,
+				CE041EFD1852A74100F79297 /* RFMarkdownSyntaxStorage.h */,
+				CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */,
 				CEEF0E9E184EA75500B7DEDF /* RFMarkdownButtons.h */,
 				CEEF0E9C184EA68600B7DEDF /* Buttons */,
 			);
@@ -346,6 +351,7 @@
 				CE041EF4185277F900F79297 /* RFAtToolbarButton.m in Sources */,
 				CE041EFC185277F900F79297 /* RFUnderscoreToolbarButton.m in Sources */,
 				CEEF0E79184EA3DE00B7DEDF /* RFToolbarButton.m in Sources */,
+				CE041EFF1852A74100F79297 /* RFMarkdownSyntaxStorage.m in Sources */,
 				F1737127184C2F5500422999 /* AppDelegate.m in Sources */,
 				CE041EF8185277F900F79297 /* RFImageToolbarButton.m in Sources */,
 				CEEF0E78184EA3DE00B7DEDF /* RFKeyboardToolbar.m in Sources */,
