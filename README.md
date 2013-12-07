@@ -3,6 +3,10 @@ RFMarkdownTextView
 
 This is a UITextView that is supposed to replicate the comment toolbar in iOctocat (http://ioctocat.com) with auto-insert markdown functionality.
 
+##Screenshot of Markdown Syntax
+
+<img src='http://i.imgur.com/3QDNlrj.png' width='320px'>
+
 ##Installation
 
 ### Installation with CocoaPods
@@ -31,7 +35,7 @@ RFMarkdownTextView is like any other UITextView - just set it up with `initWithF
 Hope you enjoy it!
 
 ##Screenshots
-###Side by Side Comparison
+###Side by Side Comparison (with iOctocat)
 ![RFMarkdownTextView](http://i.imgur.com/NEAocbW.png)
 ![iOctocat Comment](http://i.imgur.com/P8eeXZf.png) 
 ![RFMarkdownTextView 2](http://i.imgur.com/0jIR5vh.png)
