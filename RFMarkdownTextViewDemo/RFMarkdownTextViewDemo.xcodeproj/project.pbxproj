@@ -18,9 +18,8 @@
 		CE041EFB185277F900F79297 /* RFTaskToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EF0185277F900F79297 /* RFTaskToolbarButton.m */; };
 		CE041EFC185277F900F79297 /* RFUnderscoreToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EF2185277F900F79297 /* RFUnderscoreToolbarButton.m */; };
 		CE041EFF1852A74100F79297 /* RFMarkdownSyntaxStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */; };
-		CEEF0E78184EA3DE00B7DEDF /* RFKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEF0E75184EA3DE00B7DEDF /* RFKeyboardToolbar.m */; };
-		CEEF0E79184EA3DE00B7DEDF /* RFToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEF0E77184EA3DE00B7DEDF /* RFToolbarButton.m */; };
 		CEEF0E7D184EA3FE00B7DEDF /* RFMarkdownTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEF0E7C184EA3FE00B7DEDF /* RFMarkdownTextView.m */; };
+		EE92B928DE3645F2949E9F61 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8974789EB0412CA72B3577 /* libPods.a */; };
 		F1737117184C2F5500422999 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1737116184C2F5500422999 /* Foundation.framework */; };
 		F1737119184C2F5500422999 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1737118184C2F5500422999 /* CoreGraphics.framework */; };
 		F173711B184C2F5500422999 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F173711A184C2F5500422999 /* UIKit.framework */; };
@@ -47,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D8974789EB0412CA72B3577 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE041EDF185277F900F79297 /* RFAsteriskToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFAsteriskToolbarButton.h; path = Buttons/RFAsteriskToolbarButton.h; sourceTree = "<group>"; };
 		CE041EE0185277F900F79297 /* RFAsteriskToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFAsteriskToolbarButton.m; path = Buttons/RFAsteriskToolbarButton.m; sourceTree = "<group>"; };
 		CE041EE1185277F900F79297 /* RFAtToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFAtToolbarButton.h; path = Buttons/RFAtToolbarButton.h; sourceTree = "<group>"; };
@@ -69,13 +69,10 @@
 		CE041EF2185277F900F79297 /* RFUnderscoreToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFUnderscoreToolbarButton.m; path = Buttons/RFUnderscoreToolbarButton.m; sourceTree = "<group>"; };
 		CE041EFD1852A74100F79297 /* RFMarkdownSyntaxStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMarkdownSyntaxStorage.h; sourceTree = "<group>"; };
 		CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMarkdownSyntaxStorage.m; sourceTree = "<group>"; };
-		CEEF0E74184EA3DE00B7DEDF /* RFKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFKeyboardToolbar.h; sourceTree = "<group>"; };
-		CEEF0E75184EA3DE00B7DEDF /* RFKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFKeyboardToolbar.m; sourceTree = "<group>"; };
-		CEEF0E76184EA3DE00B7DEDF /* RFToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFToolbarButton.h; sourceTree = "<group>"; };
-		CEEF0E77184EA3DE00B7DEDF /* RFToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFToolbarButton.m; sourceTree = "<group>"; };
 		CEEF0E7B184EA3FE00B7DEDF /* RFMarkdownTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMarkdownTextView.h; sourceTree = "<group>"; };
 		CEEF0E7C184EA3FE00B7DEDF /* RFMarkdownTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMarkdownTextView.m; sourceTree = "<group>"; };
 		CEEF0E9E184EA75500B7DEDF /* RFMarkdownButtons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RFMarkdownButtons.h; sourceTree = "<group>"; };
+		F06D42924F9040C3A886E3BC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F1737113184C2F5500422999 /* RFMarkdownTextViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RFMarkdownTextViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1737116184C2F5500422999 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1737118184C2F5500422999 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -104,6 +101,7 @@
 				F1737119184C2F5500422999 /* CoreGraphics.framework in Frameworks */,
 				F173711B184C2F5500422999 /* UIKit.framework in Frameworks */,
 				F1737117184C2F5500422999 /* Foundation.framework in Frameworks */,
+				EE92B928DE3645F2949E9F61 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,18 +118,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CEEF0E73184EA3DE00B7DEDF /* RFKeyboardToolbar */ = {
-			isa = PBXGroup;
-			children = (
-				CEEF0E74184EA3DE00B7DEDF /* RFKeyboardToolbar.h */,
-				CEEF0E75184EA3DE00B7DEDF /* RFKeyboardToolbar.m */,
-				CEEF0E76184EA3DE00B7DEDF /* RFToolbarButton.h */,
-				CEEF0E77184EA3DE00B7DEDF /* RFToolbarButton.m */,
-			);
-			name = RFKeyboardToolbar;
-			path = ../../RFKeyboardToolbar/RFKeyboardToolbar;
-			sourceTree = "<group>";
-		};
 		CEEF0E7A184EA3FE00B7DEDF /* RFMarkdownTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +166,7 @@
 				F1737135184C2F5500422999 /* RFMarkdownTextViewDemoTests */,
 				F1737115184C2F5500422999 /* Frameworks */,
 				F1737114184C2F5500422999 /* Products */,
+				F06D42924F9040C3A886E3BC /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,6 +186,7 @@
 				F1737118184C2F5500422999 /* CoreGraphics.framework */,
 				F173711A184C2F5500422999 /* UIKit.framework */,
 				F173712F184C2F5500422999 /* XCTest.framework */,
+				8D8974789EB0412CA72B3577 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -212,7 +200,6 @@
 				F1737146184C2F7600422999 /* ViewController.m */,
 				F1737128184C2F5500422999 /* Images.xcassets */,
 				CEEF0E7A184EA3FE00B7DEDF /* RFMarkdownTextView */,
-				CEEF0E73184EA3DE00B7DEDF /* RFKeyboardToolbar */,
 				F173711D184C2F5500422999 /* Supporting Files */,
 			);
 			path = RFMarkdownTextViewDemo;
@@ -254,9 +241,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F173713F184C2F5500422999 /* Build configuration list for PBXNativeTarget "RFMarkdownTextViewDemo" */;
 			buildPhases = (
+				61255C9A23AF453BAD153CFC /* Check Pods Manifest.lock */,
 				F173710F184C2F5500422999 /* Sources */,
 				F1737110184C2F5500422999 /* Frameworks */,
 				F1737111184C2F5500422999 /* Resources */,
+				EFE0AE2605BA459980E4444B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -337,6 +326,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		61255C9A23AF453BAD153CFC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EFE0AE2605BA459980E4444B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F173710F184C2F5500422999 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -350,11 +372,9 @@
 				CE041EF3185277F900F79297 /* RFAsteriskToolbarButton.m in Sources */,
 				CE041EF4185277F900F79297 /* RFAtToolbarButton.m in Sources */,
 				CE041EFC185277F900F79297 /* RFUnderscoreToolbarButton.m in Sources */,
-				CEEF0E79184EA3DE00B7DEDF /* RFToolbarButton.m in Sources */,
 				CE041EFF1852A74100F79297 /* RFMarkdownSyntaxStorage.m in Sources */,
 				F1737127184C2F5500422999 /* AppDelegate.m in Sources */,
 				CE041EF8185277F900F79297 /* RFImageToolbarButton.m in Sources */,
-				CEEF0E78184EA3DE00B7DEDF /* RFKeyboardToolbar.m in Sources */,
 				CEEF0E7D184EA3FE00B7DEDF /* RFMarkdownTextView.m in Sources */,
 				CE041EFB185277F900F79297 /* RFTaskToolbarButton.m in Sources */,
 				CE041EF6185277F900F79297 /* RFCodeToolbarButton.m in Sources */,
@@ -474,6 +494,7 @@
 		};
 		F1737140184C2F5500422999 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F06D42924F9040C3A886E3BC /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -487,6 +508,7 @@
 		};
 		F1737141184C2F5500422999 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F06D42924F9040C3A886E3BC /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

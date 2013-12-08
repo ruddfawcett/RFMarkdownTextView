@@ -1,0 +1,10 @@
+PODS:
+  - RFKeyboardToolbar (1.0)
+
+DEPENDENCIES:
+  - RFKeyboardToolbar (~> 1.0)
+
+SPEC CHECKSUMS:
+  RFKeyboardToolbar: f94c494ed5d80c7e4356dc4feb25d9ece23dbbd5
+
+COCOAPODS: 0.25.0
