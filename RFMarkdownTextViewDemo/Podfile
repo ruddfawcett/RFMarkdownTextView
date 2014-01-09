@@ -1,2 +1,2 @@
 platform :ios, '7.0'
-pod "RFKeyboardToolbar", "~> 1.0"
+pod "RFKeyboardToolbar", "~> 1.1"

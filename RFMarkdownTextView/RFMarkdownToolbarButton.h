@@ -1,13 +1,13 @@
 //
-//  RFUnderscoreToolbarButton.h
+//  RFMarkdownToolbarButton.h
 //  RFMarkdownTextViewDemo
 //
-//  Created by Rex Finn on 12/3/13.
+//  Created by Rudd Fawcett on 12/19/13.
 //  Copyright (c) 2013 Rex Finn. All rights reserved.
 //
 
 #import "RFToolbarButton.h"
 
-@interface RFUnderscoreToolbarButton : RFToolbarButton
+@interface RFMarkdownToolbarButton : RFToolbarButton
 
 @end

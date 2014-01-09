@@ -10,16 +10,16 @@
 
 @interface RFMarkdownSyntaxStorage ()
 
-@property (nonatomic,strong) NSMutableAttributedString *attributedString;
-@property (nonatomic,strong) NSDictionary *attributeDictionary;
-@property (nonatomic,strong) NSDictionary *bodyFont;
+@property (nonatomic, strong) NSMutableAttributedString *attributedString;
+
+@property (nonatomic, strong) NSDictionary *attributeDictionary;
+@property (nonatomic, strong) NSDictionary *bodyFont;
 
 @end
 
 @implementation RFMarkdownSyntaxStorage
 
-- (id)init
-{
+- (id)init {
     if (self = [super init]) {
         _bodyFont = @{NSFontAttributeName:[UIFont systemFontOfSize:12], NSForegroundColorAttributeName:[UIColor blackColor],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleNone]};
         _attributedString = [NSMutableAttributedString new];
@@ -29,18 +29,15 @@
     return self;
 }
 
-- (NSString *)string
-{
+- (NSString *)string {
     return [_attributedString string];
 }
 
-- (NSDictionary *)attributesAtIndex:(NSUInteger)location effectiveRange:(NSRangePointer)range
-{
+- (NSDictionary *)attributesAtIndex:(NSUInteger)location effectiveRange:(NSRangePointer)range {
     return [_attributedString attributesAtIndex:location effectiveRange:range];
 }
 
-- (void)replaceCharactersInRange:(NSRange)range withString:(NSString*)str
-{
+- (void)replaceCharactersInRange:(NSRange)range withString:(NSString*)str {
     [self beginEditing];
     
     [_attributedString replaceCharactersInRange:range withString:str];
@@ -49,8 +46,7 @@
     [self endEditing];
 }
 
-- (void)setAttributes:(NSDictionary*)attrs range:(NSRange)range
-{
+- (void)setAttributes:(NSDictionary*)attrs range:(NSRange)range {
     [self beginEditing];
     
     [_attributedString setAttributes:attrs range:range];
@@ -59,14 +55,12 @@
     [self endEditing];
 }
 
--(void)processEditing
-{
+- (void)processEditing {
     [self performReplacementsForRange:[self editedRange]];
     [super processEditing];
 }
 
-- (void)performReplacementsForRange:(NSRange)changedRange
-{
+- (void)performReplacementsForRange:(NSRange)changedRange {
     NSRange extendedRange = NSUnionRange(changedRange, [[_attributedString string] lineRangeForRange:NSMakeRange(changedRange.location, 0)]);
     extendedRange = NSUnionRange(changedRange, [[_attributedString string] lineRangeForRange:NSMakeRange(NSMaxRange(changedRange), 0)]);
     
@@ -76,7 +70,7 @@
 - (void)createHighlightPatterns {
     NSDictionary *boldAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12]};
     NSDictionary *italicAttributes = @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12]};
-    NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:12]};
+    NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:11.5]};
     
     NSDictionary *codeAttributes = @{NSForegroundColorAttributeName:[UIColor grayColor]};
     
@@ -110,7 +104,7 @@
                       };
 }
 
--(void)update {
+- (void)update {
     [self createHighlightPatterns];
     
     [self addAttributes:_bodyFont range:NSMakeRange(0, self.length)];
@@ -118,8 +112,7 @@
     [self applyStylesToRange:NSMakeRange(0, self.length)];
 }
 
-- (void)applyStylesToRange:(NSRange)searchRange
-{
+- (void)applyStylesToRange:(NSRange)searchRange {
     for (NSString *key in _attributeDictionary) {
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:key options:0 error:nil];
         

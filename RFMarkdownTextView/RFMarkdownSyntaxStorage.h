@@ -10,6 +10,6 @@
 
 @interface RFMarkdownSyntaxStorage : NSTextStorage
 
--(void)update;
+- (void)update;
 
 @end

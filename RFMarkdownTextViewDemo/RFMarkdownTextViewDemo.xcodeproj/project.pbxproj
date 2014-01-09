@@ -7,16 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE041EF3185277F900F79297 /* RFAsteriskToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EE0185277F900F79297 /* RFAsteriskToolbarButton.m */; };
-		CE041EF4185277F900F79297 /* RFAtToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EE2185277F900F79297 /* RFAtToolbarButton.m */; };
-		CE041EF5185277F900F79297 /* RFCodeblockToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EE4185277F900F79297 /* RFCodeblockToolbarButton.m */; };
-		CE041EF6185277F900F79297 /* RFCodeToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EE6185277F900F79297 /* RFCodeToolbarButton.m */; };
-		CE041EF7185277F900F79297 /* RFHeaderToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EE8185277F900F79297 /* RFHeaderToolbarButton.m */; };
-		CE041EF8185277F900F79297 /* RFImageToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EEA185277F900F79297 /* RFImageToolbarButton.m */; };
-		CE041EF9185277F900F79297 /* RFLinkToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EEC185277F900F79297 /* RFLinkToolbarButton.m */; };
-		CE041EFA185277F900F79297 /* RFQuoteToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EEE185277F900F79297 /* RFQuoteToolbarButton.m */; };
-		CE041EFB185277F900F79297 /* RFTaskToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EF0185277F900F79297 /* RFTaskToolbarButton.m */; };
-		CE041EFC185277F900F79297 /* RFUnderscoreToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EF2185277F900F79297 /* RFUnderscoreToolbarButton.m */; };
 		CE041EFF1852A74100F79297 /* RFMarkdownSyntaxStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */; };
 		CEEF0E7D184EA3FE00B7DEDF /* RFMarkdownTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEF0E7C184EA3FE00B7DEDF /* RFMarkdownTextView.m */; };
 		EE92B928DE3645F2949E9F61 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8974789EB0412CA72B3577 /* libPods.a */; };
@@ -47,31 +37,10 @@
 
 /* Begin PBXFileReference section */
 		8D8974789EB0412CA72B3577 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE041EDF185277F900F79297 /* RFAsteriskToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFAsteriskToolbarButton.h; path = Buttons/RFAsteriskToolbarButton.h; sourceTree = "<group>"; };
-		CE041EE0185277F900F79297 /* RFAsteriskToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFAsteriskToolbarButton.m; path = Buttons/RFAsteriskToolbarButton.m; sourceTree = "<group>"; };
-		CE041EE1185277F900F79297 /* RFAtToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFAtToolbarButton.h; path = Buttons/RFAtToolbarButton.h; sourceTree = "<group>"; };
-		CE041EE2185277F900F79297 /* RFAtToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFAtToolbarButton.m; path = Buttons/RFAtToolbarButton.m; sourceTree = "<group>"; };
-		CE041EE3185277F900F79297 /* RFCodeblockToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFCodeblockToolbarButton.h; path = Buttons/RFCodeblockToolbarButton.h; sourceTree = "<group>"; };
-		CE041EE4185277F900F79297 /* RFCodeblockToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFCodeblockToolbarButton.m; path = Buttons/RFCodeblockToolbarButton.m; sourceTree = "<group>"; };
-		CE041EE5185277F900F79297 /* RFCodeToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFCodeToolbarButton.h; path = Buttons/RFCodeToolbarButton.h; sourceTree = "<group>"; };
-		CE041EE6185277F900F79297 /* RFCodeToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFCodeToolbarButton.m; path = Buttons/RFCodeToolbarButton.m; sourceTree = "<group>"; };
-		CE041EE7185277F900F79297 /* RFHeaderToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFHeaderToolbarButton.h; path = Buttons/RFHeaderToolbarButton.h; sourceTree = "<group>"; };
-		CE041EE8185277F900F79297 /* RFHeaderToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFHeaderToolbarButton.m; path = Buttons/RFHeaderToolbarButton.m; sourceTree = "<group>"; };
-		CE041EE9185277F900F79297 /* RFImageToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFImageToolbarButton.h; path = Buttons/RFImageToolbarButton.h; sourceTree = "<group>"; };
-		CE041EEA185277F900F79297 /* RFImageToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFImageToolbarButton.m; path = Buttons/RFImageToolbarButton.m; sourceTree = "<group>"; };
-		CE041EEB185277F900F79297 /* RFLinkToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFLinkToolbarButton.h; path = Buttons/RFLinkToolbarButton.h; sourceTree = "<group>"; };
-		CE041EEC185277F900F79297 /* RFLinkToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFLinkToolbarButton.m; path = Buttons/RFLinkToolbarButton.m; sourceTree = "<group>"; };
-		CE041EED185277F900F79297 /* RFQuoteToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFQuoteToolbarButton.h; path = Buttons/RFQuoteToolbarButton.h; sourceTree = "<group>"; };
-		CE041EEE185277F900F79297 /* RFQuoteToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFQuoteToolbarButton.m; path = Buttons/RFQuoteToolbarButton.m; sourceTree = "<group>"; };
-		CE041EEF185277F900F79297 /* RFTaskToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFTaskToolbarButton.h; path = Buttons/RFTaskToolbarButton.h; sourceTree = "<group>"; };
-		CE041EF0185277F900F79297 /* RFTaskToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFTaskToolbarButton.m; path = Buttons/RFTaskToolbarButton.m; sourceTree = "<group>"; };
-		CE041EF1185277F900F79297 /* RFUnderscoreToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFUnderscoreToolbarButton.h; path = Buttons/RFUnderscoreToolbarButton.h; sourceTree = "<group>"; };
-		CE041EF2185277F900F79297 /* RFUnderscoreToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFUnderscoreToolbarButton.m; path = Buttons/RFUnderscoreToolbarButton.m; sourceTree = "<group>"; };
 		CE041EFD1852A74100F79297 /* RFMarkdownSyntaxStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMarkdownSyntaxStorage.h; sourceTree = "<group>"; };
 		CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMarkdownSyntaxStorage.m; sourceTree = "<group>"; };
 		CEEF0E7B184EA3FE00B7DEDF /* RFMarkdownTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFMarkdownTextView.h; sourceTree = "<group>"; };
 		CEEF0E7C184EA3FE00B7DEDF /* RFMarkdownTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFMarkdownTextView.m; sourceTree = "<group>"; };
-		CEEF0E9E184EA75500B7DEDF /* RFMarkdownButtons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RFMarkdownButtons.h; sourceTree = "<group>"; };
 		F06D42924F9040C3A886E3BC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F1737113184C2F5500422999 /* RFMarkdownTextViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RFMarkdownTextViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1737116184C2F5500422999 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -125,38 +94,9 @@
 				CEEF0E7C184EA3FE00B7DEDF /* RFMarkdownTextView.m */,
 				CE041EFD1852A74100F79297 /* RFMarkdownSyntaxStorage.h */,
 				CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */,
-				CEEF0E9E184EA75500B7DEDF /* RFMarkdownButtons.h */,
-				CEEF0E9C184EA68600B7DEDF /* Buttons */,
 			);
 			name = RFMarkdownTextView;
 			path = ../../RFMarkdownTextView;
-			sourceTree = "<group>";
-		};
-		CEEF0E9C184EA68600B7DEDF /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				CE041EDF185277F900F79297 /* RFAsteriskToolbarButton.h */,
-				CE041EE0185277F900F79297 /* RFAsteriskToolbarButton.m */,
-				CE041EE1185277F900F79297 /* RFAtToolbarButton.h */,
-				CE041EE2185277F900F79297 /* RFAtToolbarButton.m */,
-				CE041EE3185277F900F79297 /* RFCodeblockToolbarButton.h */,
-				CE041EE4185277F900F79297 /* RFCodeblockToolbarButton.m */,
-				CE041EE5185277F900F79297 /* RFCodeToolbarButton.h */,
-				CE041EE6185277F900F79297 /* RFCodeToolbarButton.m */,
-				CE041EE7185277F900F79297 /* RFHeaderToolbarButton.h */,
-				CE041EE8185277F900F79297 /* RFHeaderToolbarButton.m */,
-				CE041EE9185277F900F79297 /* RFImageToolbarButton.h */,
-				CE041EEA185277F900F79297 /* RFImageToolbarButton.m */,
-				CE041EEB185277F900F79297 /* RFLinkToolbarButton.h */,
-				CE041EEC185277F900F79297 /* RFLinkToolbarButton.m */,
-				CE041EED185277F900F79297 /* RFQuoteToolbarButton.h */,
-				CE041EEE185277F900F79297 /* RFQuoteToolbarButton.m */,
-				CE041EEF185277F900F79297 /* RFTaskToolbarButton.h */,
-				CE041EF0185277F900F79297 /* RFTaskToolbarButton.m */,
-				CE041EF1185277F900F79297 /* RFUnderscoreToolbarButton.h */,
-				CE041EF2185277F900F79297 /* RFUnderscoreToolbarButton.m */,
-			);
-			name = Buttons;
 			sourceTree = "<group>";
 		};
 		F173710A184C2F5500422999 = {
@@ -364,20 +304,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE041EF7185277F900F79297 /* RFHeaderToolbarButton.m in Sources */,
 				F1737147184C2F7600422999 /* ViewController.m in Sources */,
-				CE041EFA185277F900F79297 /* RFQuoteToolbarButton.m in Sources */,
-				CE041EF9185277F900F79297 /* RFLinkToolbarButton.m in Sources */,
-				CE041EF5185277F900F79297 /* RFCodeblockToolbarButton.m in Sources */,
-				CE041EF3185277F900F79297 /* RFAsteriskToolbarButton.m in Sources */,
-				CE041EF4185277F900F79297 /* RFAtToolbarButton.m in Sources */,
-				CE041EFC185277F900F79297 /* RFUnderscoreToolbarButton.m in Sources */,
 				CE041EFF1852A74100F79297 /* RFMarkdownSyntaxStorage.m in Sources */,
 				F1737127184C2F5500422999 /* AppDelegate.m in Sources */,
-				CE041EF8185277F900F79297 /* RFImageToolbarButton.m in Sources */,
 				CEEF0E7D184EA3FE00B7DEDF /* RFMarkdownTextView.m in Sources */,
-				CE041EFB185277F900F79297 /* RFTaskToolbarButton.m in Sources */,
-				CE041EF6185277F900F79297 /* RFCodeToolbarButton.m in Sources */,
 				F1737123184C2F5500422999 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

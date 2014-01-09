@@ -10,13 +10,13 @@
 
 @interface ViewController ()
 
-@property (nonatomic,strong) RFMarkdownTextView *textView;
+@property (nonatomic, strong) RFMarkdownTextView *textView;
 
 @end
 
 @implementation ViewController
 
--(void)viewDidLoad  {
+- (void)viewDidLoad  {
     [super viewDidLoad];
     
     self.title = @"RFMarkdownTextView";

@@ -35,24 +35,72 @@
     self = [super initWithFrame:frame textContainer:container];
     if (self) {
         self.delegate = self;
-        [RFKeyboardToolbar addToTextView:self withButtons:[self buttons]];
+        self.inputAccessoryView = [RFKeyboardToolbar toolbarViewWithButtons:[self buttons]];
     }
     return self;
 }
 
+
+
 - (NSArray*)buttons {
-    RFHeaderToolbarButton *headerButton = [RFHeaderToolbarButton new];
-    RFAsteriskToolbarButton *asteriskButton = [RFAsteriskToolbarButton new];
-    RFUnderscoreToolbarButton *underscoreButton = [RFUnderscoreToolbarButton new];
-    RFCodeToolbarButton *codeButton = [RFCodeToolbarButton new];
-    RFAtToolbarButton *atButton = [RFAtToolbarButton new];
-    RFLinkToolbarButton *linkButton = [RFLinkToolbarButton new];
-    RFCodeblockToolbarButton *codeblockButton = [RFCodeblockToolbarButton new];
-    RFImageToolbarButton *imageButton = [RFImageToolbarButton new];
-    RFTaskToolbarButton *taskButton = [RFTaskToolbarButton new];
-    RFQuoteToolbarButton *quoteButton = [RFQuoteToolbarButton new];
+    return @[[self createButtonWithTitle:@"#" andEventHandler:^{ [self insertText:@"#"]; }],
+             [self createButtonWithTitle:@"*" andEventHandler:^{ [self insertText:@"*"]; }],
+             [self createButtonWithTitle:@"_" andEventHandler:^{ [self insertText:@"_"]; }],
+             [self createButtonWithTitle:@"`" andEventHandler:^{ [self insertText:@"`"]; }],
+             [self createButtonWithTitle:@"@" andEventHandler:^{ [self insertText:@"@"]; }],
+             [self createButtonWithTitle:@"Link" andEventHandler:^{
+                 NSRange selectionRange = self.selectedRange;
+                 selectionRange.location += 1;
+                 [self insertText:@"[]()"];
+                 self.selectedRange = selectionRange;
+             }],
+             [self createButtonWithTitle:@"Codeblock" andEventHandler:^{
+                 NSRange selectionRange = self.selectedRange;
+                 if (self.text.length == 0) {
+                     selectionRange.location += 3;
+                     [self insertText:@"```\n```"];
+                 }
+                 else {
+                     selectionRange.location += 4;
+                     [self insertText:@"\n```\n```"];
+                 }
+                 self.selectedRange = selectionRange;
+             }],
+             [self createButtonWithTitle:@"Image" andEventHandler:^{
+                 NSRange selectionRange = self.selectedRange;
+                 selectionRange.location += 2;
+                 [self insertText:@"![]()"];
+                 self.selectedRange = selectionRange;
+             }],
+             [self createButtonWithTitle:@"Task" andEventHandler:^{
+                 NSRange selectionRange = self.selectedRange;
+                 selectionRange.location += 7;
+                 if (self.text.length == 0) {
+                     [self insertText:@"- [ ] "];
+                 }
+                 else {
+                     [self insertText:@"\n- [ ] "];
+                 }
+                 self.selectedRange = selectionRange;
+             }],
+             [self createButtonWithTitle:@"Quote" andEventHandler:^{
+                 NSRange selectionRange = self.selectedRange;
+                 selectionRange.location += 3;
+                 if (self.text.length == 0) {
+                     [self insertText:@"> "];
+                 }
+                 else {
+                     [self insertText:@"\n> "];
+                 }
+                 self.selectedRange = selectionRange;
+             }]];
+}
+
+- (RFToolbarButton*)createButtonWithTitle:(NSString*)title andEventHandler:(void(^)())handler {
+    RFToolbarButton *button = [RFToolbarButton buttonWithTitle:title];
+    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     
-    return @[headerButton,asteriskButton,underscoreButton,codeButton,atButton,linkButton,codeblockButton,imageButton, taskButton, quoteButton];
+    return button;
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
