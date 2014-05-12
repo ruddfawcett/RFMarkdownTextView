@@ -1,4 +1,4 @@
-RFMarkdownTextView [![Build Status](https://secure.travis-ci.org/rexfinn/RFMarkdownTextView.png)](http://travis-ci.org/rexfinn/RFMarkdownTextView) [![RFMarkdownTextView Version](https://cocoapod-badges.herokuapp.com/v/RFMarkdownTextView/badge.png)](http://cocoadocs.org/docsets/RFMarkdownTextView/1.1/) ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
+RFMarkdownTextView [![Build Status](http://img.shields.io/travis/ruddfawcett/RFMarkdownTextView.svg?style=flat)](http://travis-ci.org/ruddfawcett/RFMarkdownTextView) [![RFMarkdownTextView Version](http://img.shields.io/cocoapods/v/RFMarkdownTextView.svg?style=flat)](http://cocoadocs.org/docsets/RFMarkdownTextView/1.2/) ![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat) ![reposs](https://reposs.herokuapp.com/?path=ruddfawcett/RFMarkdownTextView&style=flat)
 ==================
 
 This is a UITextView that is supposed to replicate the comment toolbar in iOctocat (http://ioctocat.com) with auto-insert markdown functionality.
@@ -22,7 +22,7 @@ pod "RFMarkdownTextView", "~> 1.2"
 
 ### Installation without CocoaPods
 
-Just drag the RFMarkdownTextView and [RFKeyboardToolbar](http://github.com/rexfinn/RFKeyboardToolbar) folder into your project and import it.
+Just drag the RFMarkdownTextView and [RFKeyboardToolbar](http://github.com/ruddfawcett/RFKeyboardToolbar) folder into your project and import it.
 
 ```
 #import 'RFMarkdownTextView.h'
@@ -47,7 +47,7 @@ Looking at these now, the text size seems smaller and the `*` and `` ` `` button
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Rex Finn
+Copyright (c) 2013 Rudd Fawcett
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
