@@ -1,4 +1,4 @@
-RFMarkdownTextView [![Build Status](http://img.shields.io/travis/ruddfawcett/RFMarkdownTextView.svg?style=flat)](http://travis-ci.org/ruddfawcett/RFMarkdownTextView) [![RFMarkdownTextView Version](http://img.shields.io/cocoapods/v/RFMarkdownTextView.svg?style=flat)](http://cocoadocs.org/docsets/RFMarkdownTextView/1.2/) ![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat) ![reposs](https://reposs.herokuapp.com/?path=ruddfawcett/RFMarkdownTextView&style=flat)
+RFMarkdownTextView <br />[![Build Status](http://img.shields.io/travis/ruddfawcett/RFMarkdownTextView.svg?style=flat)](http://travis-ci.org/ruddfawcett/RFMarkdownTextView) [![RFMarkdownTextView Version](http://img.shields.io/cocoapods/v/RFMarkdownTextView.svg?style=flat)](http://cocoadocs.org/docsets/RFMarkdownTextView/1.2/) ![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat) ![reposs](https://reposs.herokuapp.com/?path=ruddfawcett/RFMarkdownTextView&style=flat)
 ==================
 
 This is a UITextView that is supposed to replicate the comment toolbar in iOctocat (http://ioctocat.com) with auto-insert markdown functionality.
