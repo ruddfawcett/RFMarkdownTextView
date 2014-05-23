@@ -17,7 +17,7 @@ This is a UITextView that is supposed to replicate the comment toolbar in iOctoc
 
 ```ruby
 platform :ios, '7.0'
-pod "RFMarkdownTextView", "~> 1.2"
+pod "RFMarkdownTextView", "~> 1.3"
 ```
 
 ### Installation without CocoaPods
