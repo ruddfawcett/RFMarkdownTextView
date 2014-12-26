@@ -46,7 +46,7 @@
     [self endEditing];
 }
 
-- (void)setAttributes:(NSDictionary*)attrs range:(NSRange)range {
+- (void)setAttributes:(NSDictionary *)attrs range:(NSRange)range {
     [self beginEditing];
     
     [_attributedString setAttributes:attrs range:range];
