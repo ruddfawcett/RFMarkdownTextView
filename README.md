@@ -1,4 +1,4 @@
-RFMarkdownTextView <br />[![Build Status](http://img.shields.io/travis/ruddfawcett/RFMarkdownTextView.svg?style=flat)](http://travis-ci.org/ruddfawcett/RFMarkdownTextView) [![RFMarkdownTextView Version](http://img.shields.io/cocoapods/v/RFMarkdownTextView.svg?style=flat)](http://cocoadocs.org/docsets/RFMarkdownTextView/1.2/) ![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat) ![reposs](https://reposs.herokuapp.com/?path=ruddfawcett/RFMarkdownTextView&style=flat)
+RFMarkdownTextView <br />[![Build Status](http://img.shields.io/travis/ruddfawcett/RFMarkdownTextView.svg?style=flat)](http://travis-ci.org/ruddfawcett/RFMarkdownTextView) [![RFMarkdownTextView Version](http://img.shields.io/cocoapods/v/RFMarkdownTextView.svg?style=flat)](http://cocoadocs.org/docsets/RFMarkdownTextView/1.4/) ![License MIT](http://img.shields.io/badge/license-MIT-orange.svg?style=flat) ![reposs](https://reposs.herokuapp.com/?path=ruddfawcett/RFMarkdownTextView&style=flat)
 ==================
 
 This is a UITextView that is supposed to replicate the comment toolbar in iOctocat (http://ioctocat.com) with auto-insert markdown functionality.
@@ -17,7 +17,7 @@ This is a UITextView that is supposed to replicate the comment toolbar in iOctoc
 
 ```ruby
 platform :ios, '7.0'
-pod "RFMarkdownTextView", "~> 1.3"
+pod "RFMarkdownTextView", "~> 1.4"
 ```
 
 ### Installation without CocoaPods
@@ -37,9 +37,9 @@ Hope you enjoy it!
 ##Screenshots
 ###Side by Side Comparison (with iOctocat)
 ![RFMarkdownTextView](http://i.imgur.com/NEAocbW.png)
-![iOctocat Comment](http://i.imgur.com/P8eeXZf.png) 
+![iOctocat Comment](http://i.imgur.com/P8eeXZf.png)
 ![RFMarkdownTextView 2](http://i.imgur.com/0jIR5vh.png)
-![iOctocat Comment 2](http://i.imgur.com/qPCf2wQ.png) 
+![iOctocat Comment 2](http://i.imgur.com/qPCf2wQ.png)
 
 Looking at these now, the text size seems smaller and the `*` and `` ` `` button titles don't seem to be centered.  Feel free to open a pull request to fix either, as I won't be doing so.
 
