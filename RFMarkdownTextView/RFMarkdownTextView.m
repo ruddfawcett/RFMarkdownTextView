@@ -32,17 +32,16 @@
     [layoutManager addTextContainer:container];
     [_syntaxStorage addLayoutManager:layoutManager];
     
-    self = [super initWithFrame:frame textContainer:container];
-    if (self) {
+    if (self = [super initWithFrame:frame textContainer:container]) {
         self.delegate = self;
-        self.inputAccessoryView = [RFKeyboardToolbar toolbarViewWithButtons:[self buttons]];
+        self.inputAccessoryView = [RFKeyboardToolbar toolbarWithButtons:[self buttons]];
     }
     return self;
 }
 
 
 
-- (NSArray*)buttons {
+- (NSArray *)buttons {
     return @[[self createButtonWithTitle:@"#" andEventHandler:^{ [self insertText:@"#"]; }],
              [self createButtonWithTitle:@"*" andEventHandler:^{ [self insertText:@"*"]; }],
              [self createButtonWithTitle:@"_" andEventHandler:^{ [self insertText:@"_"]; }],
@@ -52,55 +51,49 @@
                  NSRange selectionRange = self.selectedRange;
                  selectionRange.location += 1;
                  [self insertText:@"[]()"];
-                 self.selectedRange = selectionRange;
+                 [self setSelectionRange:selectionRange];
+                 
              }],
              [self createButtonWithTitle:@"Codeblock" andEventHandler:^{
                  NSRange selectionRange = self.selectedRange;
-                 if (self.text.length == 0) {
-                     selectionRange.location += 3;
-                     [self insertText:@"```\n```"];
-                 }
-                 else {
-                     selectionRange.location += 4;
-                     [self insertText:@"\n```\n```"];
-                 }
-                 self.selectedRange = selectionRange;
+                 selectionRange.location += self.text.length == 0 ? 3 : 4;
+                 
+                 [self insertText: self.text.length == 0 ? @"```\n```" : @"\n```\n```"];
+                 [self setSelectionRange:selectionRange];
              }],
              [self createButtonWithTitle:@"Image" andEventHandler:^{
                  NSRange selectionRange = self.selectedRange;
                  selectionRange.location += 2;
+                 
                  [self insertText:@"![]()"];
-                 self.selectedRange = selectionRange;
+                 [self setSelectionRange:self.selectedRange];
              }],
              [self createButtonWithTitle:@"Task" andEventHandler:^{
                  NSRange selectionRange = self.selectedRange;
                  selectionRange.location += 7;
-                 if (self.text.length == 0) {
-                     [self insertText:@"- [ ] "];
-                 }
-                 else {
-                     [self insertText:@"\n- [ ] "];
-                 }
-                 self.selectedRange = selectionRange;
+                 
+                 [self insertText:self.text.length == 0 ? @"- [ ] " : @"\n- [ ] "];
+                 [self setSelectionRange:selectionRange];
              }],
              [self createButtonWithTitle:@"Quote" andEventHandler:^{
                  NSRange selectionRange = self.selectedRange;
                  selectionRange.location += 3;
-                 if (self.text.length == 0) {
-                     [self insertText:@"> "];
-                 }
-                 else {
-                     [self insertText:@"\n> "];
-                 }
-                 self.selectedRange = selectionRange;
+
+                 [self insertText:self.text.length == 0 ? @"> " : @"\n> "];
+                 [self setSelectionRange:selectionRange];
              }]];
 }
 
-- (RFToolbarButton*)createButtonWithTitle:(NSString*)title andEventHandler:(void(^)())handler {
-    RFToolbarButton *button = [RFToolbarButton buttonWithTitle:title];
-    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+- (void)setSelectionRange:(NSRange)range {
+    UIColor *previousTint = self.tintColor;
     
-    return button;
+    self.tintColor = UIColor.clearColor;
+    self.selectedRange = range;
+    self.tintColor = previousTint;
+}
+
+- (RFToolbarButton *)createButtonWithTitle:(NSString*)title andEventHandler:(void(^)())handler {
+    return [RFToolbarButton buttonWithTitle:title andEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
