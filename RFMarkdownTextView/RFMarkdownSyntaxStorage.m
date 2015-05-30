@@ -8,6 +8,9 @@
 
 #import "RFMarkdownSyntaxStorage.h"
 
+#define FONT_SIZE 14
+#define BODY_FONT [UIFont fontWithName:@"Menlo" size:FONT_SIZE]
+
 @interface RFMarkdownSyntaxStorage ()
 
 @property (nonatomic, strong) NSMutableAttributedString *attributedString;
@@ -21,7 +24,8 @@
 
 - (id)init {
     if (self = [super init]) {
-        _bodyFont = @{NSFontAttributeName:[UIFont systemFontOfSize:12], NSForegroundColorAttributeName:[UIColor blackColor],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleNone]};
+        
+        _bodyFont = @{NSFontAttributeName:BODY_FONT, NSForegroundColorAttributeName:[UIColor blackColor],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleNone]};
         _attributedString = [NSMutableAttributedString new];
         
         [self createHighlightPatterns];
@@ -68,11 +72,17 @@
 }
 
 - (void)createHighlightPatterns {
-    NSDictionary *boldAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12]};
-    NSDictionary *italicAttributes = @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12]};
-    NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:11.5]};
+    NSDictionary *boldAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:FONT_SIZE]};
+    NSDictionary *italicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Italic" size:FONT_SIZE]};
+    NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-BoldItalic" size:FONT_SIZE]};
     
     NSDictionary *codeAttributes = @{NSForegroundColorAttributeName:[UIColor grayColor]};
+    
+    NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:FONT_SIZE], NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineColorAttributeName:[UIColor colorWithWhite:0.933 alpha:1.0]};
+    NSDictionary *headerTwoAttributes = headerOneAttributes;
+    NSDictionary *headerThreeAttributes = headerOneAttributes;
+    
+    NSDictionary *strikethroughAttributes = @{NSFontAttributeName:BODY_FONT, NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle)};
     
     /*
      NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
@@ -95,12 +105,17 @@
     
     _attributeDictionary = @{
                       @"[a-zA-Z0-9\t\n ./<>?;:\\\"'`!@#$%^&*()[]{}_+=|\\-]":_bodyFont,
+                      @"~~(\\*(\\w+(\\s\\w+)*)\\*)~~":strikethroughAttributes,
                       @"\\**(?:^|[^*])(\\*\\*(\\w+(\\s\\w+)*)\\*\\*)":boldAttributes,
                       @"\\**(?:^|[^*])(\\*(\\w+(\\s\\w+)*)\\*)":italicAttributes,
                       @"(\\*\\*\\*\\w+(\\s\\w+)*\\*\\*\\*)":boldItalicAttributes,
                       @"(`\\w+(\\s\\w+)*`)":codeAttributes,
                       @"(```\n([\\s\n\\d\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/]]*)\n```)":codeAttributes,
-                      @"(\\[\\w+(\\s\\w+)*\\]\\(\\w+\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/ \\w+]*\\))":linkAttributes
+                      @"(\\[\\w+(\\s\\w+)*\\]\\(\\w+\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/ \\w+]*\\))":linkAttributes,
+                      @"(\\[\\[\\w+(\\s\\w+)*\\]\\])":linkAttributes,
+                      @"(\\#\\s?\\w*(\\s\\w+)*\\n)":headerOneAttributes,
+                      @"(\\##\\s?\\w*(\\s\\w+)*\\n)":headerTwoAttributes,
+                      @"(\\###\\s?\\w*(\\s\\w+)*\\n)":headerThreeAttributes
                       };
 }
 
