@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.author       = { 'Rudd Fawcett' => 'rudd.fawcett@gmail.com' }
   s.social_media_url = 'https://twitter.com/ruddfawcett'
   s.platform     = :ios, '7.0'
-  s.source       = { :git => 'https://github.com/ruddfawcett/RFMarkdownTextView.git', :tag => 'v1.4' }
+  s.source       = { :git => 'https://github.com/landakram/RFMarkdownTextView.git', :tag => 'v1.5' }
   s.source_files  = 'RFMarkdownTextView/*.{h,m}'
   s.requires_arc = true
   s.dependency 'RFKeyboardToolbar', '~> 1.3'
