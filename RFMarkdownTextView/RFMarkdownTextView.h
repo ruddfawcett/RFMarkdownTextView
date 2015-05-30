@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RFKeyboardToolbar.h"
-#import "RFToolbarButton.h"
+@import RFKeyboardToolbar;
 #import "RFMarkdownSyntaxStorage.h"
 
+@class RFMarkdownTextView;
+
+typedef void (^ImageBlock)(NSString *);
+
+@protocol ImagePickerDelegate <NSObject>
+- (void)textViewWantsImage:(RFMarkdownTextView *)textView completion:(ImageBlock)imageBlock;
+@end
+
 @interface RFMarkdownTextView : UITextView <UITextViewDelegate>
+
+@property (nonatomic, weak) id<ImagePickerDelegate> imagePickerDelegate;
 
 @end
