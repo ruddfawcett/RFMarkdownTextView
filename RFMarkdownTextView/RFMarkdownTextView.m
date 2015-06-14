@@ -183,7 +183,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    [_syntaxStorage update];
+    [_syntaxStorage update:self.selectedRange];
 }
 
 @end

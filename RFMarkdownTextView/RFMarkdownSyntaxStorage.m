@@ -59,6 +59,14 @@
     [self endEditing];
 }
 
+- (void)addAttributes:(NSDictionary *)attrs range:(NSRange)range {
+    [self beginEditing];
+    
+    [super addAttributes:attrs range:range];
+    
+    [self endEditing];
+}
+
 - (void)processEditing {
     [self performReplacementsForRange:[self editedRange]];
     [super processEditing];
@@ -119,12 +127,16 @@
                       };
 }
 
-- (void)update {
+- (void)update:(NSRange)range {
     [self createHighlightPatterns];
     
     [self addAttributes:_bodyFont range:NSMakeRange(0, self.length)];
     
-    [self applyStylesToRange:NSMakeRange(0, self.length)];
+    [self applyStylesToRange:[[self.attributedString mutableString] lineRangeForRange:range]];
+}
+
+- (void)update {
+    [self update:NSMakeRange(0, self.length)];
 }
 
 - (void)applyStylesToRange:(NSRange)searchRange {
