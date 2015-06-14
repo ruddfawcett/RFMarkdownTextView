@@ -156,12 +156,18 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
+        // Matches " *" and " - [ ]"
         NSString *pattern = @" *(\\*|- \\[( |x)\\]) ";
         NSError  *error = nil;
         NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: pattern options:0 error:&error];
         
         if (range.location > 0) {
             NSRange oldRange = NSMakeRange(MAX(0, range.location - 1), range.length);
+            
+            // Don't match the previous line if the user is making a newline on an empty line
+            if ([[self.text substringWithRange:NSMakeRange(oldRange.location, 1)] isEqualToString:@"\n"]) {
+                return YES;
+            }
             NSRange previousLineRange = [self.text lineRangeForRange:oldRange];
             
             NSArray *matches = [regex matchesInString:self.text options:0 range: previousLineRange];
