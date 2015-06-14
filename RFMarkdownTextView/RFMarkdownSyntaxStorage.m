@@ -105,7 +105,7 @@
     
     _attributeDictionary = @{
                       @"[a-zA-Z0-9\t\n ./<>?;:\\\"'`!@#$%^&*()[]{}_+=|\\-]":_bodyFont,
-                      @"~~(\\*(\\w+(\\s\\w+)*)\\*)~~":strikethroughAttributes,
+                      @"~~(\\w+(\\s\\w+)*)~~":strikethroughAttributes,
                       @"\\**(?:^|[^*])(\\*\\*(\\w+(\\s\\w+)*)\\*\\*)":boldAttributes,
                       @"\\**(?:^|[^*])(\\*(\\w+(\\s\\w+)*)\\*)":italicAttributes,
                       @"(\\*\\*\\*\\w+(\\s\\w+)*\\*\\*\\*)":boldItalicAttributes,
