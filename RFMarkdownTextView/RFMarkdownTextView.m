@@ -7,6 +7,7 @@
 //
 
 #import "RFMarkdownTextView.h"
+#import "RFMarkdownSyntaxStorage.h"
 
 @interface RFMarkdownTextView ()
 

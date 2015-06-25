@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @import RFKeyboardToolbar;
-#import "RFMarkdownSyntaxStorage.h"
 
 @class RFMarkdownTextView;
 
