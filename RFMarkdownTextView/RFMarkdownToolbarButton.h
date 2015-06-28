@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Rex Finn. All rights reserved.
 //
 
-#import "RFToolbarButton.h"
+@import RFKeyboardToolbar;
 
 @interface RFMarkdownToolbarButton : RFToolbarButton
 
