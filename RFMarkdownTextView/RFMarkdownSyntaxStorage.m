@@ -22,14 +22,13 @@
 
 #import "RFMarkdownSyntaxStorage.h"
 
-#define FONT_SIZE 14
-#define BODY_FONT [UIFont fontWithName:@"Menlo" size:FONT_SIZE]
-
 @interface RFMarkdownSyntaxStorage ()
 
 
-@property (nonatomic, strong) NSDictionary *attributeDictionary;
-@property (nonatomic, strong) NSDictionary *bodyFont;
+@property (nonatomic, strong,readonly) NSDictionary *attributeDictionary;
+@property (nonatomic, strong,readonly) NSDictionary *bodyAttributes;
+
+@property (nonatomic,strong,readonly) UIFont* bodyFont;
 
 @end
 
@@ -39,11 +38,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        
-        _bodyFont = @{NSFontAttributeName:BODY_FONT, NSForegroundColorAttributeName:[UIColor blackColor],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleNone]};
         _backingStore = [NSMutableAttributedString new];
-        
-        [self createHighlightPatterns];
     }
     return self;
 }
@@ -95,58 +90,9 @@
     [self applyStylesToRange:extendedRange];
 }
 
-- (void)createHighlightPatterns {
-    NSDictionary *boldAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:FONT_SIZE]};
-    NSDictionary *italicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Italic" size:FONT_SIZE]};
-    NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-BoldItalic" size:FONT_SIZE]};
-    
-    NSDictionary *codeAttributes = @{NSForegroundColorAttributeName:[UIColor grayColor]};
-    
-    NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:FONT_SIZE], NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineColorAttributeName:[UIColor colorWithWhite:0.933 alpha:1.0]};
-    NSDictionary *headerTwoAttributes = headerOneAttributes;
-    NSDictionary *headerThreeAttributes = headerOneAttributes;
-    
-    NSDictionary *strikethroughAttributes = @{NSFontAttributeName:BODY_FONT, NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle)};
-    
-    /*
-     NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
-     NSDictionary *headerTwoAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:13]};
-     NSDictionary *headerThreeAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.5]};
-     
-     Alternate H1 with underline:
-     
-     NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineColorAttributeName:[UIColor colorWithWhite:0.933 alpha:1.0]};
-     
-     Headers need to be worked on...
-     
-     @"(\\#\\w+(\\s\\w+)*\n)":headerOneAttributes,
-     @"(\\##\\w+(\\s\\w+)*\n)":headerTwoAttributes,
-     @"(\\###\\w+(\\s\\w+)*\n)":headerThreeAttributes
-     
-     */
-    
-    NSDictionary *linkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.255 green:0.514 blue:0.769 alpha:1.00]};
-    
-    _attributeDictionary = @{
-                      @"[a-zA-Z0-9\t\n ./<>?;:\\\"'`!@#$%^&*()[]{}_+=|\\-]":_bodyFont,
-                      @"~~(\\w+(\\s\\w+)*)~~":strikethroughAttributes,
-                      @"\\**(?:^|[^*])(\\*\\*(\\w+(\\s\\w+)*)\\*\\*)":boldAttributes,
-                      @"\\**(?:^|[^*])(\\*(\\w+(\\s\\w+)*)\\*)":italicAttributes,
-                      @"(\\*\\*\\*\\w+(\\s\\w+)*\\*\\*\\*)":boldItalicAttributes,
-                      @"(`\\w+(\\s\\w+)*`)":codeAttributes,
-                      @"(```\n([\\s\n\\d\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/]]*)\n```)":codeAttributes,
-                      @"(\\[\\w+(\\s\\w+)*\\]\\(\\w+\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/ \\w+]*\\))":linkAttributes,
-                      @"(\\[\\[\\w+(\\s\\w+)*\\]\\])":linkAttributes,
-                      @"(\\#\\s?\\w*(\\s\\w+)*\\n)":headerOneAttributes,
-                      @"(\\##\\s?\\w*(\\s\\w+)*\\n)":headerTwoAttributes,
-                      @"(\\###\\s?\\w*(\\s\\w+)*\\n)":headerThreeAttributes
-                      };
-}
-
 - (void)update:(NSRange)range {
-    [self createHighlightPatterns];
     
-    [self addAttributes:_bodyFont range:NSMakeRange(0, self.length)];
+    [self addAttributes:self.bodyAttributes range:NSMakeRange(0, self.length)];
     
     [self applyStylesToRange:[[self string] lineRangeForRange:range]];
 }
@@ -156,10 +102,11 @@
 }
 
 - (void)applyStylesToRange:(NSRange)searchRange {
-    for (NSString *key in _attributeDictionary) {
+    NSDictionary* attributeDictionary = self.attributeDictionary;
+    for (NSString *key in attributeDictionary) {
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:key options:0 error:nil];
         
-        NSDictionary *attributes = _attributeDictionary[key];
+        NSDictionary *attributes = attributeDictionary[key];
         
         [regex enumerateMatchesInString:[_backingStore string] options:0 range:searchRange
             usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
@@ -167,7 +114,7 @@
                 [self addAttributes:attributes range:matchRange];
                 
                 if (NSMaxRange(matchRange)+1 < self.length) {
-                     [self addAttributes:_bodyFont range:NSMakeRange(NSMaxRange(matchRange)+1, 1)];
+                     [self addAttributes:self.bodyAttributes range:NSMakeRange(NSMaxRange(matchRange)+1, 1)];
                 }
         }];
     }
@@ -175,5 +122,80 @@
 
 #pragma mark Property Access
 
+@synthesize bodyAttributes = _bodyAttributes;
+
+-(NSDictionary *)bodyAttributes {
+    if (!_bodyAttributes) {
+        _bodyAttributes = @{NSFontAttributeName:self.bodyFont, NSForegroundColorAttributeName:[UIColor blackColor],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleNone]};
+    }
+    return _bodyAttributes;
+}
+
+@synthesize bodyFont = _bodyFont;
+
+-(UIFont *)bodyFont {
+    if (!_bodyFont) {
+        UIFontDescriptor* baseDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+        _bodyFont = [UIFont fontWithName:@"Menlo" size:baseDescriptor.pointSize];
+    }
+    return _bodyFont;
+}
+
+@synthesize attributeDictionary = _attributeDictionary;
+
+-(NSDictionary *)attributeDictionary {
+    if (!_attributeDictionary) {
+        UIFont* bodyFont = self.bodyFont;
+        CGFloat bodyFontSize = bodyFont.pointSize;
+        
+        NSDictionary *boldAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:bodyFontSize]};
+        NSDictionary *italicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Italic" size:bodyFontSize]};
+        NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-BoldItalic" size:bodyFontSize]};
+        
+        NSDictionary *codeAttributes = @{NSForegroundColorAttributeName:[UIColor grayColor]};
+        
+        NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:bodyFontSize], NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineColorAttributeName:[UIColor colorWithWhite:0.933 alpha:1.0]};
+        NSDictionary *headerTwoAttributes = headerOneAttributes;
+        NSDictionary *headerThreeAttributes = headerOneAttributes;
+        
+        NSDictionary *strikethroughAttributes = @{NSFontAttributeName:bodyFont, NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle)};
+        
+        /*
+         NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
+         NSDictionary *headerTwoAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:13]};
+         NSDictionary *headerThreeAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.5]};
+         
+         Alternate H1 with underline:
+         
+         NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineColorAttributeName:[UIColor colorWithWhite:0.933 alpha:1.0]};
+         
+         Headers need to be worked on...
+         
+         @"(\\#\\w+(\\s\\w+)*\n)":headerOneAttributes,
+         @"(\\##\\w+(\\s\\w+)*\n)":headerTwoAttributes,
+         @"(\\###\\w+(\\s\\w+)*\n)":headerThreeAttributes
+         
+         */
+        
+        NSDictionary *linkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.255 green:0.514 blue:0.769 alpha:1.00]};
+        
+        _attributeDictionary = @{
+                                 @"[a-zA-Z0-9\t\n ./<>?;:\\\"'`!@#$%^&*()[]{}_+=|\\-]":self.bodyAttributes,
+                                 @"~~(\\w+(\\s\\w+)*)~~":strikethroughAttributes,
+                                 @"\\**(?:^|[^*])(\\*\\*(\\w+(\\s\\w+)*)\\*\\*)":boldAttributes,
+                                 @"\\**(?:^|[^*])(\\*(\\w+(\\s\\w+)*)\\*)":italicAttributes,
+                                 @"(\\*\\*\\*\\w+(\\s\\w+)*\\*\\*\\*)":boldItalicAttributes,
+                                 @"(`\\w+(\\s\\w+)*`)":codeAttributes,
+                                 @"(```\n([\\s\n\\d\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/]]*)\n```)":codeAttributes,
+                                 @"(\\[\\w+(\\s\\w+)*\\]\\(\\w+\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/ \\w+]*\\))":linkAttributes,
+                                 @"(\\[\\[\\w+(\\s\\w+)*\\]\\])":linkAttributes,
+                                 @"(\\#\\s?\\w*(\\s\\w+)*\\n)":headerOneAttributes,
+                                 @"(\\##\\s?\\w*(\\s\\w+)*\\n)":headerTwoAttributes,
+                                 @"(\\###\\s?\\w*(\\s\\w+)*\\n)":headerThreeAttributes
+                                 };
+
+    }
+    return _attributeDictionary;
+}
 
 @end
