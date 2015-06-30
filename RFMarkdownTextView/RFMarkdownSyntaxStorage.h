@@ -26,7 +26,5 @@
 
 @interface RFMarkdownSyntaxStorage : NSTextStorage
 
-- (void)update;
-- (void)update:(NSRange)range;
 
 @end

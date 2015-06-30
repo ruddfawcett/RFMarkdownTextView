@@ -69,14 +69,6 @@
     [self endEditing];
 }
 
-- (void)addAttributes:(NSDictionary *)attrs range:(NSRange)range {
-    [self beginEditing];
-    
-    [super addAttributes:attrs range:range];
-    
-    [self endEditing];
-}
-
 - (void)processEditing {
     [self performReplacementsForRange:[self editedRange]];
     [super processEditing];
@@ -90,29 +82,16 @@
     [self applyStylesToRange:extendedRange];
 }
 
-- (void)update:(NSRange)range {
-    
-    [self addAttributes:self.bodyAttributes range:NSMakeRange(0, self.length)];
-    
-    [self applyStylesToRange:[[self string] lineRangeForRange:range]];
-}
-
-- (void)update {
-    [self update:NSMakeRange(0, self.length)];
-}
-
 - (void)applyStylesToRange:(NSRange)searchRange {
     NSDictionary* attributeDictionary = self.attributeDictionary;
     NSString* backingString = [_backingStore string];
+    NSDictionary* bodyAttributes  = self.bodyAttributes;
+    [self addAttributes:bodyAttributes range:searchRange];
     [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(NSRegularExpression* regex, NSDictionary* attributes, BOOL* stop) {
         [regex enumerateMatchesInString:backingString options:0 range:searchRange
                              usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
                                  NSRange matchRange = [match rangeAtIndex:1];
                                  [self addAttributes:attributes range:matchRange];
-                                 
-                                 if (NSMaxRange(matchRange)+1 < self.length) {
-                                     [self addAttributes:self.bodyAttributes range:NSMakeRange(NSMaxRange(matchRange)+1, 1)];
-                                 }
                              }];
         
     }];

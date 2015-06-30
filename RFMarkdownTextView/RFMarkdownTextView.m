@@ -21,10 +21,8 @@
 @synthesize priorInset;
 
 - (id)initWithFrame:(CGRect)frame {
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12]}];
     
     _syntaxStorage = [RFMarkdownSyntaxStorage new];
-    [_syntaxStorage appendAttributedString:attrString];
     
     CGRect newTextViewRect = frame;
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
@@ -183,8 +181,5 @@
     return YES;
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
-    [_syntaxStorage update:self.selectedRange];
-}
 
 @end
