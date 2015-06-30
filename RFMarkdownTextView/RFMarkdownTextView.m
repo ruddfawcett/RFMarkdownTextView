@@ -9,12 +9,23 @@
 #import "RFMarkdownTextView.h"
 #import "RFMarkdownSyntaxStorage.h"
 
-@interface RFMarkdownTextView ()
+@interface RFMarkdownTextView_DelegateProxy : NSProxy<UITextViewDelegate>
+
+@property (nonatomic,weak) id<UITextViewDelegate> delegateTarget;
+
+@end
+
+
+@interface RFMarkdownTextView () {
+    RFMarkdownTextView_DelegateProxy* _delegateProxy;
+}
 
 @property (strong,nonatomic) RFMarkdownSyntaxStorage *syntaxStorage;
 @property (nonatomic, assign) UIEdgeInsets priorInset;
 
 @end
+
+// ---
 
 @implementation RFMarkdownTextView
 @synthesize imagePickerDelegate;
@@ -35,8 +46,9 @@
     [_syntaxStorage addLayoutManager:layoutManager];
     
     if (self = [super initWithFrame:frame textContainer:container]) {
-        self.delegate = self;
         self.inputAccessoryView = [RFKeyboardToolbar toolbarWithButtons:[self buttons]];
+        _delegateProxy = [RFMarkdownTextView_DelegateProxy alloc];
+        [super setDelegate:_delegateProxy];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -172,33 +184,88 @@
     return [RFToolbarButton buttonWithTitle:title andEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
 }
 
+#pragma mark Property Access
+
+-(void)setDelegate:(id<UITextViewDelegate> __nullable)delegate {
+    _delegateProxy.delegateTarget = delegate;
+}
+
+@end
+
+@implementation RFMarkdownTextView_DelegateProxy
+
+@synthesize delegateTarget = _delegateTarget;
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    BOOL (^forwardCurrentInvocation)() =  ^{
+        id<UITextViewDelegate> target = self.delegateTarget;
+        if ([target respondsToSelector:_cmd]) {
+            return [target textView:textView shouldChangeTextInRange:range replacementText:text];
+        }
+        return YES;
+    };
     if ([text isEqualToString:@"\n"]) {
-        // Matches " *" and " - [ ]"
-        NSString *pattern = @" *(\\*|- \\[( |x)\\]) ";
-        NSError  *error = nil;
-        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: pattern options:0 error:&error];
+        static NSRegularExpression* regex;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            // Matches " *" and " - [ ]"
+            NSString *pattern = @" *(\\*|- \\[( |x)\\]) ";
+            NSError  *error = nil;
+            regex = [NSRegularExpression regularExpressionWithPattern: pattern options:0 error:&error];
+            if (error) {
+                NSLog(@"Error parsing regex '%@' error: %@'",pattern,error);
+            }
+        });
         
         if (range.location > 0) {
             NSRange oldRange = NSMakeRange(MAX(0, range.location - 1), range.length);
-            
+            NSString* text = textView.text;
             // Don't match the previous line if the user is making a newline on an empty line
-            if ([[self.text substringWithRange:NSMakeRange(oldRange.location, 1)] isEqualToString:@"\n"]) {
-                return YES;
+            if ([[text substringWithRange:NSMakeRange(oldRange.location, 1)] isEqualToString:@"\n"]) {
+                return forwardCurrentInvocation();
             }
-            NSRange previousLineRange = [self.text lineRangeForRange:oldRange];
+            NSRange previousLineRange = [text lineRangeForRange:oldRange];
             
-            NSArray *matches = [regex matchesInString:self.text options:0 range: previousLineRange];
+            NSArray *matches = [regex matchesInString:text options:0 range: previousLineRange];
             
             if (matches.count > 0) {
-                NSString *previousPrefix = [self.text substringWithRange:[matches[0] rangeAtIndex:0]];
-                [self insertText:[NSString stringWithFormat:@"\n%@", previousPrefix]];
+                NSString *previousPrefix = [text substringWithRange:[matches[0] rangeAtIndex:0]];
+                [textView insertText:[NSString stringWithFormat:@"\n%@", previousPrefix]];
                 return NO;
             }
         }
     }
-    return YES;
+    return forwardCurrentInvocation();
 }
 
 
+-(void)forwardInvocation:(nonnull NSInvocation *)invocation {
+    [invocation setTarget:self.delegateTarget];
+    [invocation invoke];
+}
+
+-(nullable NSMethodSignature *)methodSignatureForSelector:(nonnull SEL)sel {
+    const SEL mySelector = @selector(methodSignatureForSelector:);
+
+    id<NSObject> target = self.delegateTarget;
+    if (target && [target respondsToSelector:mySelector]) {
+        return [(NSObject*)target methodSignatureForSelector:sel];
+    } else {
+        NSMethodSignature* sig = [NSObject instanceMethodSignatureForSelector:sel];
+        return sig;
+    }
+}
+
+-(BOOL) respondsToSelector:(SEL)aSelector {
+    if (aSelector == @selector(textView:shouldChangeTextInRange:replacementText:)) {
+        return YES;
+    } else {
+        id<NSObject> target = self.delegateTarget;
+        if (target) {
+            return [target respondsToSelector:aSelector];
+        }
+    }
+    return NO;
+}
 @end
+
