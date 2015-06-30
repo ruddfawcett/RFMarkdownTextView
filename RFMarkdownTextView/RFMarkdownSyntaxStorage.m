@@ -113,7 +113,9 @@
 -(UIFont *)bodyFont {
     if (!_bodyFont) {
         UIFontDescriptor* baseDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
-        _bodyFont = [UIFont fontWithName:@"Menlo" size:baseDescriptor.pointSize];
+        CGFloat baseFontSize = baseDescriptor.pointSize;
+        CGFloat bodyFontSize = ceilf(baseFontSize * 14 / 17 / 2) * 2;
+        _bodyFont = [UIFont fontWithName:@"Menlo" size:bodyFontSize];
     }
     return _bodyFont;
 }
