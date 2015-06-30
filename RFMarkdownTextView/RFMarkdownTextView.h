@@ -23,7 +23,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@import RFKeyboardToolbar;
+#import <RFKeyboardToolbar/RFKeyboardToolbar.h>
 
 @class RFMarkdownTextView;
 
