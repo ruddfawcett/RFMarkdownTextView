@@ -104,7 +104,7 @@
 - (void)applyStylesToRange:(NSRange)searchRange {
     NSDictionary* attributeDictionary = self.attributeDictionary;
     NSString* backingString = [_backingStore string];
-    [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id  __nonnull regex, id  __nonnull attributes, BOOL * __nonnull stop) {
+    [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(NSRegularExpression* regex, NSDictionary* attributes, BOOL* stop) {
         [regex enumerateMatchesInString:backingString options:0 range:searchRange
                              usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
                                  NSRange matchRange = [match rangeAtIndex:1];
