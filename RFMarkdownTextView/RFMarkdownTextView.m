@@ -87,57 +87,76 @@
 }
 
 - (NSArray *)buttons {
+    RFMarkdownTextView __weak* weakSelf = self;
     return @[
-             [self createButtonWithTitle:@"#" andEventHandler:^{ [self insertText:@"#"]; }],
+             [self createButtonWithTitle:@"#" andEventHandler:^{ [weakSelf insertText:@"#"]; }],
              [self createButtonWithTitle:@"*" andEventHandler:^{
-                 if (self.selectedRange.length > 0) {
-                     [self wrapSelectedRangeWithString:@"*"];
+                if(!weakSelf) {
+                    return;
+                }
+                 if (weakSelf.selectedRange.length > 0) {
+                     [weakSelf wrapSelectedRangeWithString:@"*"];
                  } else {
-                     [self insertText:@"*"];
+                     [weakSelf insertText:@"*"];
                  }
              }],
-             [self createButtonWithTitle:@"->|" andEventHandler:^{ [self insertText:@"  "]; }],
-             [self createButtonWithTitle:@"[[" andEventHandler:^{
-                 if (self.selectedRange.length > 0) {
-                     [self wrapSelectedRangeWithStartString:@"[[" endString:@"]]"];
-                     NSString *linkName = [self textInRange:self.selectedTextRange];
-                     [self replaceRange:self.selectedTextRange withText:[linkName capitalizedString]];
+             [self createButtonWithTitle:@"->|" andEventHandler:^{ [weakSelf insertText:@"  "]; }],
+             [self createButtonWithTitle:@"[[" andEventHandler:^{                
+                 if(!weakSelf) {
+                     return;
+                 }
+                 if (weakSelf.selectedRange.length > 0) {
+                     [weakSelf wrapSelectedRangeWithStartString:@"[[" endString:@"]]"];
+                     NSString *linkName = [weakSelf textInRange:weakSelf.selectedTextRange];
+                     [weakSelf replaceRange:weakSelf.selectedTextRange withText:[linkName capitalizedString]];
                  } else {
-                     NSRange selectionRange = self.selectedRange;
+                     NSRange selectionRange = weakSelf.selectedRange;
                      selectionRange.location += 2;
-                     [self insertText:@"[[]]"];
-                     [self setSelectionRange:selectionRange];
+                     [weakSelf insertText:@"[[]]"];
+                     [weakSelf setSelectionRange:selectionRange];
                  }
              }],
              [self createButtonWithTitle:@"`" andEventHandler:^{
-                 if (self.selectedRange.length > 0) {
-                     [self wrapSelectedRangeWithString:@"`"];
+                 if(!weakSelf) {
+                     return;
+                 }
+                 if (weakSelf.selectedRange.length > 0) {
+                     [weakSelf wrapSelectedRangeWithString:@"`"];
                  } else {
-                     [self insertText:@"`"];
+                     [weakSelf insertText:@"`"];
                  }
              }],
              [self createButtonWithTitle:@"Photo" andEventHandler:^{
+                 if(!weakSelf) {
+                     return;
+                 }
                  ImageBlock block = ^(NSString *imagePath) {
-                     NSRange selectionRange = self.selectedRange;
+                     NSRange selectionRange = weakSelf.selectedRange;
                      selectionRange.location += 2;
-                     [self insertText:[NSString stringWithFormat:@"![](img/%@)", imagePath]];
-                     [self setSelectionRange:self.selectedRange];
+                     [weakSelf insertText:[NSString stringWithFormat:@"![](img/%@)", imagePath]];
+                     [weakSelf setSelectionRange:weakSelf.selectedRange];
                  };
-                 [imagePickerDelegate textViewWantsImage:self completion:block];
+                 [weakSelf.imagePickerDelegate textViewWantsImage:weakSelf completion:block];
              }],
              [self createButtonWithTitle:@"Link" andEventHandler:^{
-                 NSRange selectionRange = self.selectedRange;
+                 if(!weakSelf) {
+                     return;
+                 }
+                 NSRange selectionRange = weakSelf.selectedRange;
                  selectionRange.location += 1;
-                 [self insertText:@"[]()"];
-                 [self setSelectionRange:selectionRange];
+                 [weakSelf insertText:@"[]()"];
+                 [weakSelf setSelectionRange:selectionRange];
                  
              }],
              [self createButtonWithTitle:@"Quote" andEventHandler:^{
-                 NSRange selectionRange = self.selectedRange;
+                 if(!weakSelf) {
+                     return;
+                 }
+                 NSRange selectionRange = weakSelf.selectedRange;
                  selectionRange.location += 3;
 
-                 [self insertText:self.text.length == 0 ? @"> " : @"\n> "];
-                 [self setSelectionRange:selectionRange];
+                 [weakSelf insertText:weakSelf.text.length == 0 ? @"> " : @"\n> "];
+                 [weakSelf setSelectionRange:selectionRange];
              }]];
 }
 
