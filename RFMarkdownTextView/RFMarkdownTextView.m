@@ -46,7 +46,6 @@
     [_syntaxStorage addLayoutManager:layoutManager];
     
     if (self = [super initWithFrame:frame textContainer:container]) {
-        self.inputAccessoryView = [RFKeyboardToolbar toolbarWithButtons:[self buttons]];
         _delegateProxy = [RFMarkdownTextView_DelegateProxy alloc];
         [super setDelegate:_delegateProxy];
     }
@@ -182,6 +181,13 @@
 
 - (RFToolbarButton *)createButtonWithTitle:(NSString*)title andEventHandler:(void(^)())handler {
     return [RFToolbarButton buttonWithTitle:title andEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    if (!self.inputAccessoryView) {
+        self.inputAccessoryView = [RFKeyboardToolbar toolbarWithButtons:[self buttons]];
+    }
 }
 
 #pragma mark Property Access
