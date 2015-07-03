@@ -251,7 +251,7 @@
     [invocation invoke];
 }
 
--(nullable NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
+-(NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
     const SEL mySelector = @selector(methodSignatureForSelector:);
 
     id<NSObject> target = self.delegateTarget;
