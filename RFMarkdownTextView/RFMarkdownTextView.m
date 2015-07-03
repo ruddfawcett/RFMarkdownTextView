@@ -246,12 +246,12 @@
 }
 
 
--(void)forwardInvocation:(nonnull NSInvocation *)invocation {
+-(void)forwardInvocation:(NSInvocation *)invocation {
     [invocation setTarget:self.delegateTarget];
     [invocation invoke];
 }
 
--(nullable NSMethodSignature *)methodSignatureForSelector:(nonnull SEL)sel {
+-(nullable NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
     const SEL mySelector = @selector(methodSignatureForSelector:);
 
     id<NSObject> target = self.delegateTarget;
