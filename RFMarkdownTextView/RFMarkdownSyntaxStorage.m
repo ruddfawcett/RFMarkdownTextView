@@ -76,8 +76,7 @@
 
 - (void)performReplacementsForRange:(NSRange)changedRange {
     NSString* backingString = [_backingStore string];
-    NSRange extendedRange = NSUnionRange(changedRange, [backingString lineRangeForRange:NSMakeRange(changedRange.location, 0)]);
-    extendedRange = NSUnionRange(changedRange, [backingString lineRangeForRange:NSMakeRange(NSMaxRange(changedRange), 0)]);
+    NSRange extendedRange = extendedRange = NSUnionRange(changedRange, [backingString lineRangeForRange:NSMakeRange(NSMaxRange(changedRange), 0)]);
     
     [self applyStylesToRange:extendedRange];
 }
