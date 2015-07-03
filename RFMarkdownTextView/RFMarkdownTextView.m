@@ -33,7 +33,7 @@
 
 - (id)initWithFrame:(CGRect)frame {
     
-    _syntaxStorage = [RFMarkdownSyntaxStorage new];
+    RFMarkdownSyntaxStorage* syntaxStorage = [RFMarkdownSyntaxStorage new];
     
     CGRect newTextViewRect = frame;
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
@@ -43,9 +43,10 @@
     container.widthTracksTextView = YES;
     
     [layoutManager addTextContainer:container];
-    [_syntaxStorage addLayoutManager:layoutManager];
+    [syntaxStorage addLayoutManager:layoutManager];
     
     if (self = [super initWithFrame:frame textContainer:container]) {
+        _syntaxStorage = syntaxStorage;
         _delegateProxy = [RFMarkdownTextView_DelegateProxy alloc];
         [super setDelegate:_delegateProxy];
     }
