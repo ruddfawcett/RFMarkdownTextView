@@ -192,7 +192,7 @@
 
 #pragma mark Property Access
 
--(void)setDelegate:(id<UITextViewDelegate> __nullable)delegate {
+-(void)setDelegate:(id<UITextViewDelegate>) delegate {
     _delegateProxy.delegateTarget = delegate;
 }
 
