@@ -85,14 +85,13 @@
     NSDictionary* attributeDictionary = self.attributeDictionary;
     NSString* backingString = [_backingStore string];
     NSDictionary* bodyAttributes  = self.bodyAttributes;
-    [self addAttributes:bodyAttributes range:searchRange];
+    [self setAttributes:bodyAttributes range:searchRange];
     [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(NSRegularExpression* regex, NSDictionary* attributes, BOOL* stop) {
         [regex enumerateMatchesInString:backingString options:0 range:searchRange
                              usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
                                  NSRange matchRange = [match rangeAtIndex:1];
                                  [self addAttributes:attributes range:matchRange];
                              }];
-        
     }];
 }
 
@@ -125,16 +124,24 @@
     if (!_attributeDictionary) {
         UIFont* bodyFont = self.bodyFont;
         CGFloat bodyFontSize = bodyFont.pointSize;
+        CGFloat smallerFontSize = roundf(bodyFontSize * 0.8 / 2) * 2;
+        
+        UIColor* codeColor = [UIColor grayColor];
         
         NSDictionary *boldAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:bodyFontSize]};
         NSDictionary *italicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Italic" size:bodyFontSize]};
         NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-BoldItalic" size:bodyFontSize]};
         
-        NSDictionary *codeAttributes = @{NSForegroundColorAttributeName:[UIColor grayColor]};
+        NSDictionary *codeAttributes = @{NSForegroundColorAttributeName:codeColor};
+        NSDictionary *preformattedTextAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo" size:smallerFontSize],NSForegroundColorAttributeName : codeColor};
         
-        NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:bodyFontSize], NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineColorAttributeName:[UIColor colorWithWhite:0.933 alpha:1.0]};
-        NSDictionary *headerTwoAttributes = headerOneAttributes;
-        NSDictionary *headerThreeAttributes = headerOneAttributes;
+        UIFont* headerFont = [UIFont fontWithName:@"Menlo-Bold" size:bodyFontSize];
+        NSNumber* headerUnderlineStyle = [NSNumber numberWithInt:NSUnderlineStyleSingle];
+        UIColor* headerUnderlineColor = [UIColor colorWithWhite:0.933 alpha:1.0];
+        
+        NSDictionary *headerOneAttributes = @{NSFontAttributeName:headerFont, NSUnderlineStyleAttributeName:headerUnderlineStyle, NSUnderlineColorAttributeName:headerUnderlineColor,NSForegroundColorAttributeName : [UIColor blackColor]};
+        NSDictionary *headerTwoAttributes = @{NSFontAttributeName:headerFont, NSUnderlineStyleAttributeName:headerUnderlineStyle, NSUnderlineColorAttributeName:headerUnderlineColor,NSForegroundColorAttributeName : [UIColor darkGrayColor]};
+        NSDictionary *headerThreeAttributes = @{NSFontAttributeName:headerFont, NSUnderlineStyleAttributeName:headerUnderlineStyle, NSUnderlineColorAttributeName:headerUnderlineColor,NSForegroundColorAttributeName : [UIColor grayColor]};
         
         NSDictionary *strikethroughAttributes = @{NSFontAttributeName:bodyFont, NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle)};
         
@@ -157,7 +164,7 @@
         
         NSRegularExpression* (^regex)(NSString*) = ^(NSString* regexString) {
             NSError* regexError = nil;
-            NSRegularExpression* pattern = [NSRegularExpression regularExpressionWithPattern:regexString options:0 error:&regexError];
+            NSRegularExpression* pattern = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionAnchorsMatchLines error:&regexError];
             if (regexError) {
                 NSLog(@"Regex %@ error: %@",regexString,regexError);
             }
@@ -171,12 +178,13 @@
                                  regex(@"\\**(?:^|[^*])(\\*(\\w+(\\s\\w+)*)\\*)") :italicAttributes,
                                  regex(@"(\\*\\*\\*\\w+(\\s\\w+)*\\*\\*\\*)") :boldItalicAttributes,
                                  regex(@"(`\\w+(\\s\\w+)*`)") :codeAttributes,
+                                 regex(@"^((?:\\h{4}|\\t).*)$") :preformattedTextAttributes,
                                  regex(@"(```\n([\\s\n\\d\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/]]*)\n```)") :codeAttributes,
                                  regex(@"(\\[\\w+(\\s\\w+)*\\]\\(\\w+\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/ \\w+]*\\))") :linkAttributes,
                                  regex(@"(\\[\\[\\w+(\\s\\w+)*\\]\\])") :linkAttributes,
-                                 regex(@"(\\#\\s?\\w*(\\s\\w+)*\\n)") :headerOneAttributes,
-                                 regex(@"(\\##\\s?\\w*(\\s\\w+)*\\n)") :headerTwoAttributes,
-                                 regex(@"(\\###\\s?\\w*(\\s\\w+)*\\n)") :headerThreeAttributes
+                                 regex(@"^(\\#\\h?.*)$") :headerOneAttributes,
+                                 regex(@"^(\\#{2}?\\h?.*)$") :headerTwoAttributes,
+                                 regex(@"^(\\#{3}?\\h?.*)$") :headerThreeAttributes,
                                  };
 
     }
