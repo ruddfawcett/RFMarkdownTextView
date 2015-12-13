@@ -1,46 +1,60 @@
 //
 //  RFMarkdownSyntaxStorage.m
-//  RFMarkdownTextViewDemo
 //
-//  Created by Rudd Fawcett on 12/6/13.
-//  Copyright (c) 2013 Rudd Fawcett. All rights reserved.
+//    Derived from RFMarkdownTextView Copyright (c) 2015 Rudd Fawcett
 //
+//    Permission is hereby granted, free of charge, to any person obtaining a copy of
+//    this software and associated documentation files (the "Software"), to deal in
+//    the Software without restriction, including without limitation the rights to
+//    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+//    the Software, and to permit persons to whom the Software is furnished to do so,
+//    subject to the following conditions:
+//
+//    The above copyright notice and this permission notice shall be included in all
+//    copies or substantial portions of the Software.
+//
+//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+//    FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+//    COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+//    IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+//    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "RFMarkdownSyntaxStorage.h"
 
 @interface RFMarkdownSyntaxStorage ()
 
-@property (nonatomic, strong) NSMutableAttributedString *attributedString;
 
-@property (nonatomic, strong) NSDictionary *attributeDictionary;
-@property (nonatomic, strong) NSDictionary *bodyFont;
+@property (nonatomic, strong,readonly) NSDictionary *attributeDictionary;
+@property (nonatomic, strong,readonly) NSDictionary *bodyAttributes;
+
+@property (nonatomic,strong,readonly) UIFont* bodyFont;
 
 @end
 
-@implementation RFMarkdownSyntaxStorage
+@implementation RFMarkdownSyntaxStorage {
+    NSMutableAttributedString* _backingStore;
+}
 
 - (id)init {
     if (self = [super init]) {
-        _bodyFont = @{NSFontAttributeName:[UIFont systemFontOfSize:12], NSForegroundColorAttributeName:[UIColor blackColor],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleNone]};
-        _attributedString = [NSMutableAttributedString new];
-        
-        [self createHighlightPatterns];
+        _backingStore = [NSMutableAttributedString new];
     }
     return self;
 }
 
 - (NSString *)string {
-    return [_attributedString string];
+    return [_backingStore string];
 }
 
 - (NSDictionary *)attributesAtIndex:(NSUInteger)location effectiveRange:(NSRangePointer)range {
-    return [_attributedString attributesAtIndex:location effectiveRange:range];
+    return [_backingStore attributesAtIndex:location effectiveRange:range];
 }
 
 - (void)replaceCharactersInRange:(NSRange)range withString:(NSString*)str {
     [self beginEditing];
     
-    [_attributedString replaceCharactersInRange:range withString:str];
+    [_backingStore replaceCharactersInRange:range withString:str];
     
     [self edited:NSTextStorageEditedCharacters | NSTextStorageEditedAttributes range:range changeInLength:str.length - range.length];
     [self endEditing];
@@ -49,7 +63,7 @@
 - (void)setAttributes:(NSDictionary *)attrs range:(NSRange)range {
     [self beginEditing];
     
-    [_attributedString setAttributes:attrs range:range];
+    [_backingStore setAttributes:attrs range:range];
     
     [self edited:NSTextStorageEditedAttributes range:range changeInLength:0];
     [self endEditing];
@@ -61,73 +75,120 @@
 }
 
 - (void)performReplacementsForRange:(NSRange)changedRange {
-    NSRange extendedRange = NSUnionRange(changedRange, [[_attributedString string] lineRangeForRange:NSMakeRange(changedRange.location, 0)]);
-    extendedRange = NSUnionRange(changedRange, [[_attributedString string] lineRangeForRange:NSMakeRange(NSMaxRange(changedRange), 0)]);
+    NSString* backingString = [_backingStore string];
+    NSRange extendedRange = extendedRange = NSUnionRange(changedRange, [backingString lineRangeForRange:NSMakeRange(NSMaxRange(changedRange), 0)]);
     
     [self applyStylesToRange:extendedRange];
 }
 
-- (void)createHighlightPatterns {
-    NSDictionary *boldAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12]};
-    NSDictionary *italicAttributes = @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12]};
-    NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-BoldItalic" size:11.5]};
-    
-    NSDictionary *codeAttributes = @{NSForegroundColorAttributeName:[UIColor grayColor]};
-    
-    /*
-     NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
-     NSDictionary *headerTwoAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:13]};
-     NSDictionary *headerThreeAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.5]};
-     
-     Alternate H1 with underline:
-     
-     NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineColorAttributeName:[UIColor colorWithWhite:0.933 alpha:1.0]};
-     
-     Headers need to be worked on...
-     
-     @"(\\#\\w+(\\s\\w+)*\n)":headerOneAttributes,
-     @"(\\##\\w+(\\s\\w+)*\n)":headerTwoAttributes,
-     @"(\\###\\w+(\\s\\w+)*\n)":headerThreeAttributes
-     
-     */
-    
-    NSDictionary *linkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.255 green:0.514 blue:0.769 alpha:1.00]};
-    
-    _attributeDictionary = @{
-                      @"[a-zA-Z0-9\t\n ./<>?;:\\\"'`!@#$%^&*()[]{}_+=|\\-]":_bodyFont,
-                      @"\\**(?:^|[^*])(\\*\\*(\\w+(\\s\\w+)*)\\*\\*)":boldAttributes,
-                      @"\\**(?:^|[^*])(\\*(\\w+(\\s\\w+)*)\\*)":italicAttributes,
-                      @"(\\*\\*\\*\\w+(\\s\\w+)*\\*\\*\\*)":boldItalicAttributes,
-                      @"(`\\w+(\\s\\w+)*`)":codeAttributes,
-                      @"(```\n([\\s\n\\d\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/]]*)\n```)":codeAttributes,
-                      @"(\\[\\w+(\\s\\w+)*\\]\\(\\w+\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/ \\w+]*\\))":linkAttributes
-                      };
-}
-
-- (void)update {
-    [self createHighlightPatterns];
-    
-    [self addAttributes:_bodyFont range:NSMakeRange(0, self.length)];
-    
-    [self applyStylesToRange:NSMakeRange(0, self.length)];
-}
-
 - (void)applyStylesToRange:(NSRange)searchRange {
-    for (NSString *key in _attributeDictionary) {
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:key options:0 error:nil];
-        
-        NSDictionary *attributes = _attributeDictionary[key];
-        
-        [regex enumerateMatchesInString:[_attributedString string] options:0 range:searchRange
-            usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
-                NSRange matchRange = [match rangeAtIndex:1];
-                [self addAttributes:attributes range:matchRange];
-                
-                if (NSMaxRange(matchRange)+1 < self.length) {
-                     [self addAttributes:_bodyFont range:NSMakeRange(NSMaxRange(matchRange)+1, 1)];
-                }
-        }];
+    NSDictionary* attributeDictionary = self.attributeDictionary;
+    NSString* backingString = [_backingStore string];
+    NSDictionary* bodyAttributes  = self.bodyAttributes;
+    [self setAttributes:bodyAttributes range:searchRange];
+    [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(NSRegularExpression* regex, NSDictionary* attributes, BOOL* stop) {
+        [regex enumerateMatchesInString:backingString options:0 range:searchRange
+                             usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
+                                 NSRange matchRange = [match rangeAtIndex:1];
+                                 [self addAttributes:attributes range:matchRange];
+                             }];
+    }];
+}
+
+#pragma mark Property Access
+
+@synthesize bodyAttributes = _bodyAttributes;
+
+-(NSDictionary *)bodyAttributes {
+    if (!_bodyAttributes) {
+        _bodyAttributes = @{NSFontAttributeName:self.bodyFont, NSForegroundColorAttributeName:[UIColor blackColor],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleNone]};
     }
+    return _bodyAttributes;
+}
+
+@synthesize bodyFont = _bodyFont;
+
+-(UIFont *)bodyFont {
+    if (!_bodyFont) {
+        UIFontDescriptor* baseDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+        CGFloat baseFontSize = baseDescriptor.pointSize;
+        CGFloat bodyFontSize = ceilf(baseFontSize * 14 / 17 / 2) * 2;
+        _bodyFont = [UIFont fontWithName:@"Menlo" size:bodyFontSize];
+    }
+    return _bodyFont;
+}
+
+@synthesize attributeDictionary = _attributeDictionary;
+
+-(NSDictionary *)attributeDictionary {
+    if (!_attributeDictionary) {
+        UIFont* bodyFont = self.bodyFont;
+        CGFloat bodyFontSize = bodyFont.pointSize;
+        CGFloat smallerFontSize = roundf(bodyFontSize * 0.8 / 2) * 2;
+        
+        UIColor* codeColor = [UIColor grayColor];
+        
+        NSDictionary *boldAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Bold" size:bodyFontSize]};
+        NSDictionary *italicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-Italic" size:bodyFontSize]};
+        NSDictionary *boldItalicAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo-BoldItalic" size:bodyFontSize]};
+        
+        NSDictionary *codeAttributes = @{NSForegroundColorAttributeName:codeColor};
+        NSDictionary *preformattedTextAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Menlo" size:smallerFontSize],NSForegroundColorAttributeName : codeColor};
+        
+        UIFont* headerFont = [UIFont fontWithName:@"Menlo-Bold" size:bodyFontSize];
+        NSNumber* headerUnderlineStyle = [NSNumber numberWithInt:NSUnderlineStyleSingle];
+        UIColor* headerUnderlineColor = [UIColor colorWithWhite:0.933 alpha:1.0];
+        
+        NSDictionary *headerOneAttributes = @{NSFontAttributeName:headerFont, NSUnderlineStyleAttributeName:headerUnderlineStyle, NSUnderlineColorAttributeName:headerUnderlineColor,NSForegroundColorAttributeName : [UIColor blackColor]};
+        NSDictionary *headerTwoAttributes = @{NSFontAttributeName:headerFont, NSUnderlineStyleAttributeName:headerUnderlineStyle, NSUnderlineColorAttributeName:headerUnderlineColor,NSForegroundColorAttributeName : [UIColor darkGrayColor]};
+        NSDictionary *headerThreeAttributes = @{NSFontAttributeName:headerFont, NSUnderlineStyleAttributeName:headerUnderlineStyle, NSUnderlineColorAttributeName:headerUnderlineColor,NSForegroundColorAttributeName : [UIColor grayColor]};
+        
+        NSDictionary *strikethroughAttributes = @{NSFontAttributeName:bodyFont, NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle)};
+        
+        /*
+         NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
+         NSDictionary *headerTwoAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:13]};
+         NSDictionary *headerThreeAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.5]};
+         
+         Alternate H1 with underline:
+         
+         NSDictionary *headerOneAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14],NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineColorAttributeName:[UIColor colorWithWhite:0.933 alpha:1.0]};
+         
+         Headers need to be worked on...
+         
+         @"(\\#\\w+(\\s\\w+)*\n)":headerOneAttributes,
+         @"(\\##\\w+(\\s\\w+)*\n)":headerTwoAttributes,
+         @"(\\###\\w+(\\s\\w+)*\n)":headerThreeAttributes
+         
+         */
+        
+        NSRegularExpression* (^regex)(NSString*) = ^(NSString* regexString) {
+            NSError* regexError = nil;
+            NSRegularExpression* pattern = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionAnchorsMatchLines error:&regexError];
+            if (regexError) {
+                NSLog(@"Regex %@ error: %@",regexString,regexError);
+            }
+            return pattern;
+        };
+        NSDictionary *linkAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:0.255 green:0.514 blue:0.769 alpha:1.00]};
+        
+        _attributeDictionary = @{
+                                 regex(@"~~(\\w+(\\s\\w+)*)~~") :strikethroughAttributes,
+                                 regex(@"\\**(?:^|[^*])(\\*\\*(\\w+(\\s\\w+)*)\\*\\*)") :boldAttributes,
+                                 regex(@"\\**(?:^|[^*])(\\*(\\w+(\\s\\w+)*)\\*)") :italicAttributes,
+                                 regex(@"(\\*\\*\\*\\w+(\\s\\w+)*\\*\\*\\*)") :boldItalicAttributes,
+                                 regex(@"(`\\w+(\\s\\w+)*`)") :codeAttributes,
+                                 regex(@"^((?:\\h{4}|\\t).*)$") :preformattedTextAttributes,
+                                 regex(@"(```\n([\\s\n\\d\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/]]*)\n```)") :codeAttributes,
+                                 regex(@"(\\[\\w+(\\s\\w+)*\\]\\(\\w+\\w[/[\\.,-\\/#!?@$%\\^&\\*;:|{}<>+=\\-'_~()\\\"\\[\\]\\\\]/ \\w+]*\\))") :linkAttributes,
+                                 regex(@"(\\[\\[\\w+(\\s\\w+)*\\]\\])") :linkAttributes,
+                                 regex(@"^(\\#\\h?.*)$") :headerOneAttributes,
+                                 regex(@"^(\\#{2}?\\h?.*)$") :headerTwoAttributes,
+                                 regex(@"^(\\#{3}?\\h?.*)$") :headerThreeAttributes,
+                                 };
+
+    }
+    return _attributeDictionary;
 }
 
 @end
