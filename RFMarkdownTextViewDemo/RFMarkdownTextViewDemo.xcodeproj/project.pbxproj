@@ -10,7 +10,6 @@
 		35AA496F87F5F4A4965192BD /* libPods-RFMarkdownTextViewDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3339B86B70676C00BE340F /* libPods-RFMarkdownTextViewDemo.a */; };
 		CE041EFF1852A74100F79297 /* RFMarkdownSyntaxStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041EFE1852A74100F79297 /* RFMarkdownSyntaxStorage.m */; };
 		CEEF0E7D184EA3FE00B7DEDF /* RFMarkdownTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEF0E7C184EA3FE00B7DEDF /* RFMarkdownTextView.m */; };
-		EE92B928DE3645F2949E9F61 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8974789EB0412CA72B3577 /* libPods.a */; };
 		F1737117184C2F5500422999 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1737116184C2F5500422999 /* Foundation.framework */; };
 		F1737119184C2F5500422999 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1737118184C2F5500422999 /* CoreGraphics.framework */; };
 		F173711B184C2F5500422999 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F173711A184C2F5500422999 /* UIKit.framework */; };
@@ -75,7 +74,6 @@
 				F1737119184C2F5500422999 /* CoreGraphics.framework in Frameworks */,
 				F173711B184C2F5500422999 /* UIKit.framework in Frameworks */,
 				F1737117184C2F5500422999 /* Foundation.framework in Frameworks */,
-				EE92B928DE3645F2949E9F61 /* libPods.a in Frameworks */,
 				35AA496F87F5F4A4965192BD /* libPods-RFMarkdownTextViewDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
