@@ -1,5 +1,0 @@
-language: objective-c
-before_install:
-    - cd RFMarkdownTextViewDemo
-    - gem install cocoapods
-script: xctool -workspace RFMarkdownTextViewDemo.xcworkspace -scheme RFMarkdownTextViewDemo -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO clean build
